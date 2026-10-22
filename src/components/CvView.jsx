@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { profile } from '../data/profile';
-import { cv } from '../data/cv';
+import { useI18n } from '../lib/i18n';
 import { EASE } from '../lib/motion';
 
 const reveal = {
@@ -10,26 +9,29 @@ const reveal = {
 };
 
 export default function CvView() {
+  const { t, data } = useI18n();
+  const profile = data.profile ?? {};
+
   const contacts = [
-    { label: 'Email', value: profile.email, href: `mailto:${profile.email}` },
-    { label: 'Teléfono', value: profile.phone, href: `tel:${profile.phone.replace(/\s/g, '')}` },
-    { label: 'LinkedIn', value: profile.linkedin, href: `https://${profile.linkedin}` },
-    { label: 'Ubicación', value: profile.location },
+    { label: t('cvContactEmail'), value: profile.email ?? 'emanuel.mendez@email.com', href: `mailto:${(profile.email ?? 'emanuel.mendez@email.com').replace(/\s/g, '')}` },
+    { label: t('cvContactPhone'), value: profile.phone ?? '+54 9 351 000 0000', href: `tel:${(profile.phone ?? '+54 9 351 000 0000').replace(/\s/g, '')}` },
+    { label: t('cvContactLinkedIn'), value: profile.linkedin ?? 'linkedin.com/in/emanuelmendez', href: `https://${profile.linkedin ?? 'linkedin.com/in/emanuelmendez'}` },
+    { label: t('cvContactLocation'), value: profile.location ?? 'Córdoba, Argentina' },
   ];
 
   return (
     <main className="page cv-container">
       <div className="cv-toolbar">
         <Link to="/" className="back-button">
-          ← Volver al Portfolio
+          ← {t('cvBack')}
         </Link>
 
         <div className="cv-actions">
-          <a href={profile.cvFile} download className="cv-button">
-            Descargar PDF
+          <a href={profile.cvFile ?? '/cv-emanuel-mendez.pdf'} download className="cv-button">
+            {t('cvDownload')}
           </a>
           <button type="button" className="cv-button" onClick={() => window.print()}>
-            Imprimir / Guardar
+            {t('cvPrint')}
           </button>
         </div>
       </div>
@@ -40,13 +42,11 @@ export default function CvView() {
         initial="hidden"
         animate="visible"
       >
-        <p className="eyebrow">{profile.degree}</p>
-        {/* Mismo layoutId que el cartucho de la portada: el nombre viaja del bloque
-           .identifier al encabezado del CV en una transición continua. */}
+        <p className="eyebrow">{t('cvDegree')}</p>
         <motion.h1 layoutId="profile-name" className="cv-name">
-          {profile.name}
+          {t('identName')}
         </motion.h1>
-        <p className="cv-role">{profile.role}</p>
+        <p className="cv-role">{t('cvRole')}</p>
 
         <ul className="cv-contact">
           {contacts.map((c) => (
@@ -73,8 +73,8 @@ export default function CvView() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
           >
-            <h2 className="cv-section-title">Perfil</h2>
-            <p className="cv-summary">{cv.summary}</p>
+            <h2 className="cv-section-title">{t('cvSectionProfile')}</h2>
+            <p className="cv-summary">{data.cvSummary ?? t('cvSummary')}</p>
           </motion.section>
 
           <motion.section
@@ -84,10 +84,10 @@ export default function CvView() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
           >
-            <h2 className="cv-section-title">Experiencia</h2>
+            <h2 className="cv-section-title">{t('cvSectionExperience')}</h2>
 
             <ol className="cv-timeline">
-              {cv.experience.map((item) => (
+              {(data.cvExp ?? []).map((item) => (
                 <li key={`${item.period}-${item.company}`} className="cv-entry">
                   <span className="cv-period">{item.period}</span>
                   <div className="cv-entry-body">
@@ -113,10 +113,10 @@ export default function CvView() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
           >
-            <h2 className="cv-section-title">Formación</h2>
+            <h2 className="cv-section-title">{t('cvSectionEducation')}</h2>
 
             <ol className="cv-timeline">
-              {cv.education.map((item) => (
+              {(data.cvEdu ?? []).map((item) => (
                 <li key={`${item.period}-${item.degree}`} className="cv-entry">
                   <span className="cv-period">{item.period}</span>
                   <div className="cv-entry-body">
@@ -137,10 +137,10 @@ export default function CvView() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
           >
-            <h2 className="cv-section-title">Competencias</h2>
+            <h2 className="cv-section-title">{t('cvSectionSkills')}</h2>
 
             <div className="cv-skills">
-              {cv.skills.map((group) => (
+              {(data.cvSkills ?? []).map((group) => (
                 <div key={group.group} className="cv-skill-group">
                   <h3 className="cv-skill-name">{group.group}</h3>
                   <ul className="cv-tags">
@@ -160,10 +160,10 @@ export default function CvView() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
           >
-            <h2 className="cv-section-title">Matriculaciones</h2>
+            <h2 className="cv-section-title">{t('cvSectionCertifications')}</h2>
 
             <ul className="cv-list">
-              {cv.certifications.map((c) => (
+              {(data.cvCerts ?? []).map((c) => (
                 <li key={c.title}>
                   <span className="cv-list-title">{c.title}</span>
                   <span className="cv-list-meta">
@@ -181,10 +181,10 @@ export default function CvView() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
           >
-            <h2 className="cv-section-title">Idiomas</h2>
+            <h2 className="cv-section-title">{t('cvSectionLanguages')}</h2>
 
             <ul className="cv-list">
-              {cv.languages.map((l) => (
+              {(data.cvLangs ?? []).map((l) => (
                 <li key={l.language}>
                   <span className="cv-list-title">{l.language}</span>
                   <span className="cv-list-meta">{l.level}</span>

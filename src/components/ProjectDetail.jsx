@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { getProjectById } from '../data/projects';
+import { useI18n } from '../lib/i18n';
 import { EASE, LAYOUT_TRANSITION } from '../lib/motion';
 
 const reveal = {
@@ -10,15 +10,62 @@ const reveal = {
 
 export default function ProjectDetail() {
   const { id } = useParams();
-  const project = getProjectById(id);
+  const { t, data } = useI18n();
+
+  const projectMap = {
+    'casa-bosque': {
+      id: 'casa-bosque',
+      title: data.proj1Title,
+      category: data.proj1Category,
+      location: data.proj1Location,
+      year: '2024',
+      coverImage: '/images/casa-bosque-cover.jpg',
+      description: data.proj1Desc,
+      gallery: data.proj1Gallery.map((title, idx) => ({
+        url: [`/images/plano-planta.jpg`, `/images/fachada-vertical.jpg`, `/images/render-interior.jpg`, `/images/plano-elevacion.jpg`][idx],
+        aspect: ['horizontal', 'vertical', 'square', 'horizontal'][idx],
+        title,
+      })),
+    },
+    'torre-cooperativa': {
+      id: 'torre-cooperativa',
+      title: data.proj2Title,
+      category: data.proj2Category,
+      location: data.proj2Location,
+      year: '2023',
+      coverImage: '/images/torre-cooperativa-cover.jpg',
+      description: data.proj2Desc,
+      gallery: data.proj2Gallery.map((title, idx) => ({
+        url: [`/images/torre-planta.jpg`, `/images/torre-fachada.jpg`, `/images/torre-render.jpg`][idx],
+        aspect: ['horizontal', 'vertical', 'square'][idx],
+        title,
+      })),
+    },
+    'pavilion-lago': {
+      id: 'pavilion-lago',
+      title: data.proj3Title,
+      category: data.proj3Category,
+      location: data.proj3Location,
+      year: '2022',
+      coverImage: '/images/pavilion-lago-cover.jpg',
+      description: data.proj3Desc,
+      gallery: data.proj3Gallery.map((title, idx) => ({
+        url: [`/images/pavilion-planta.jpg`, `/images/pavilion-vertical.jpg`, `/images/pavilion-render.jpg`][idx],
+        aspect: ['horizontal', 'vertical', 'square'][idx],
+        title,
+      })),
+    },
+  };
+
+  const project = projectMap[id];
 
   if (!project) {
     return (
       <main className="page detail-container">
-        <p className="eyebrow">Error 404</p>
-        <h1>Proyecto no encontrado</h1>
+        <p className="eyebrow">{t('notFoundEyebrow')}</p>
+        <h1>{t('notFoundTitle')}</h1>
         <Link to="/" className="back-button">
-          ← Volver al Portfolio
+          ← {t('appBack')}
         </Link>
       </main>
     );
@@ -28,13 +75,11 @@ export default function ProjectDetail() {
     <main className="page detail-container">
       <motion.div variants={reveal} initial="hidden" animate="visible">
         <Link to="/" className="back-button">
-          ← Volver al Portfolio
+          ← {t('detailBack')}
         </Link>
       </motion.div>
 
       <div className="detail-hero">
-        {/* Mismo layoutId que la card: Framer interpola posición y tamaño de la
-            imagen para que se expanda desde su lugar en la grilla. */}
         <motion.img
           layoutId={`img-${project.id}`}
           src={project.coverImage}
@@ -59,8 +104,6 @@ export default function ProjectDetail() {
         <p className="description">{project.description}</p>
       </motion.div>
 
-      {/* Galería secundaria: conviven planos (horizontales), fotos verticales y renders.
-          Todo se muestra completo, con el fondo neutro acting como marco. */}
       <div className="secondary-gallery">
         {project.gallery.map((item, index) => (
           <motion.figure

@@ -6,6 +6,8 @@ import ProjectDetail from './components/ProjectDetail';
 import CvView from './components/CvView';
 import NotFound from './components/NotFound';
 import Backdrop from './components/Backdrop';
+import LanguageMenu from './components/LanguageMenu';
+import { LanguageProvider } from './lib/i18n';
 import { EASE } from './lib/motion';
 
 const routes = [
@@ -51,16 +53,19 @@ function AnimatedRoutes() {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <ScrollToTop />
-      {/* reducedMotion="user": si el sistema pide menos movimiento, Framer desactiva
-          las animaciones de transform/layout y deja solo las de opacidad. */}
-      <MotionConfig reducedMotion="user">
-        <div className="app-root">
-          <Backdrop />
-          <AnimatedRoutes />
-        </div>
-      </MotionConfig>
-    </BrowserRouter>
+    <LanguageProvider>
+      <BrowserRouter>
+        <ScrollToTop />
+        {/* reducedMotion="user": si el sistema pide menos movimiento, Framer desactiva
+            las animaciones de transform/layout y deja solo las de opacidad. */}
+        <MotionConfig reducedMotion="user">
+          <div className="app-root">
+            <Backdrop />
+            <LanguageMenu />
+            <AnimatedRoutes />
+          </div>
+        </MotionConfig>
+      </BrowserRouter>
+    </LanguageProvider>
   );
 }

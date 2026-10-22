@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { projects } from '../data/projects';
-import { profile } from '../data/profile';
+import { useI18n } from '../lib/i18n';
 import { EASE, LAYOUT_TRANSITION } from '../lib/motion';
 
 const cardVariants = {
@@ -14,19 +13,43 @@ const cardVariants = {
 };
 
 export default function Gallery() {
+  const { t, data } = useI18n();
+
+  const projects = data.proj1Title ? [
+    {
+      id: 'casa-bosque',
+      title: data.proj1Title,
+      category: data.proj1Category,
+      location: data.proj1Location,
+      year: '2024',
+      coverImage: '/images/casa-bosque-cover.jpg',
+    },
+    {
+      id: 'torre-cooperativa',
+      title: data.proj2Title,
+      category: data.proj2Category,
+      location: data.proj2Location,
+      year: '2023',
+      coverImage: '/images/torre-cooperativa-cover.jpg',
+    },
+    {
+      id: 'pavilion-lago',
+      title: data.proj3Title,
+      category: data.proj3Category,
+      location: data.proj3Location,
+      year: '2022',
+      coverImage: '/images/pavilion-lago-cover.jpg',
+    }
+  ] : [];
+
   return (
     <main className="page gallery-container">
       <header className="portfolio-header">
-        <p className="eyebrow">Portafolio</p>
-        <h1>Estudio de Arquitectura</h1>
-        <p className="lead">
-          Proyectos residenciales, colectivos y culturales. Una selección de obra construida y
-          en curso.
-        </p>
+        <p className="eyebrow">{t('appEyebrow')}</p>
+        <h1>{t('appTitle')}</h1>
+        <p className="lead">{t('appLead')}</p>
       </header>
 
-      {/* Cartucho: bloque de identificación a la manera de los planos, con el
-          nombre del ingeniero. Al hacer click se abre la vista de CV. */}
       <motion.div
         className="identifier"
         initial="hidden"
@@ -35,31 +58,31 @@ export default function Gallery() {
       >
         <Link to="/cv" className="identifier-link">
           <div className="identifier-main">
-            <p className="eyebrow">{profile.degree}</p>
+            <p className="eyebrow">{t('identDegree')}</p>
             <motion.p layoutId="profile-name" className="identifier-name">
-              {profile.name}
+              {t('identName')}
             </motion.p>
-            <p className="identifier-role">{profile.role}</p>
+            <p className="identifier-role">{t('identRole')}</p>
           </div>
 
           <div className="identifier-side">
             <dl className="identifier-data">
               <div>
-                <dt>Ubicación</dt>
-                <dd>{profile.location}</dd>
+                <dt>{t('identLocationLabel')}</dt>
+                <dd>{data.profile?.location ?? 'Córdoba, Argentina'}</dd>
               </div>
               <div>
-                <dt>Contacto</dt>
-                <dd>{profile.email}</dd>
+                <dt>{t('identContactLabel')}</dt>
+                <dd>{data.profile?.email ?? 'emanuel.mendez@email.com'}</dd>
               </div>
             </dl>
-            <span className="identifier-cta">Ver CV</span>
+            <span className="identifier-cta">{t('identCta')}</span>
           </div>
         </Link>
       </motion.div>
 
       <div className="section-rule">
-        <span>Proyectos</span>
+        <span>{t('appSectionProjects')}</span>
       </div>
 
       <motion.div
@@ -77,8 +100,6 @@ export default function Gallery() {
           >
             <Link to={`/project/${project.id}`} className="project-card-link">
               <div className="image-wrapper">
-                {/* layoutId compartido con la portada del detalle: la imagen viaja de la
-                    grilla a la vista detalle en una sola transición continua. */}
                 <motion.img
                   layoutId={`img-${project.id}`}
                   src={project.coverImage}

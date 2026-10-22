@@ -17,9 +17,9 @@
   /* Curva de desaceleración compartida con Framer Motion */
   --ease-architecture: cubic-bezier(0.25, 1, 0.5, 1);
 
-  /* Retícula de cuaderno técnico */
-  --grid-fine: rgba(18, 18, 18, 0.035);
-  --grid-bold: rgba(18, 18, 18, 0.06);
+  /* Retícula de cuaderno técnico — líneas en celeste pastel suave */
+  --grid-fine: rgba(125, 190, 225, 0.085);
+  --grid-bold: rgba(125, 190, 225, 0.14);
   --grain-opacity: 0.05;
 
   --page-max: 1440px;
@@ -254,5 +254,113 @@ figure {
   .cv-list li,
   .cv-section {
     break-inside: avoid;
+  }
+}
+
+/* ============================================================
+   Menú de idiomas (top-right)
+   ============================================================ */
+
+.lang-menu {
+  position: fixed;
+  top: var(--gutter);
+  right: var(--gutter);
+  z-index: 100;
+}
+
+.lang-menu__trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--line);
+  cursor: pointer;
+  transition:
+    border-color 0.35s var(--ease-architecture),
+    box-shadow 0.35s var(--ease-architecture);
+}
+
+.lang-menu__trigger:hover {
+  border-color: var(--ink);
+  box-shadow: 0 14px 32px -20px rgba(18, 18, 18, 0.45);
+}
+
+.lang-menu__trigger:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.lang-menu__trigger::after {
+  content: '\25BE';
+  font-size: 8px;
+  transition: transform 0.3s var(--ease-architecture);
+}
+
+.lang-menu--open .lang-menu__trigger::after {
+  transform: rotate(180deg);
+}
+
+.lang-menu__list {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 140px;
+  padding: 8px;
+  list-style: none;
+  margin: 0;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid var(--line);
+  box-shadow: 0 20px 48px -24px rgba(18, 18, 18, 0.55);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition:
+    opacity 0.25s var(--ease-architecture),
+    visibility 0.25s,
+    transform 0.25s var(--ease-architecture);
+}
+
+.lang-menu--open .lang-menu__list {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.lang-menu__item {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.2s var(--ease-architecture), background-color 0.2s var(--ease-architecture);
+}
+
+.lang-menu__item:hover,
+.lang-menu__item:focus-visible {
+  color: var(--ink-soft);
+  background: var(--surface);
+  outline: none;
+}
+
+.lang-menu__item--active {
+  color: var(--muted);
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .lang-menu {
+    top: 16px;
+    right: 16px;
   }
 }
