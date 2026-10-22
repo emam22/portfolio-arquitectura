@@ -130,6 +130,17 @@ const dict = {
       { language: 'Inglés', level: 'Intermedio B1' },
       { language: 'Portugués', level: 'Intermedio B1' },
     ],
+    // Profile contacto (valores reales, no traducidos)
+    profile: {
+      name: 'Abigail Mendez',
+      degree: 'Estudiante de Arquitectura',
+      role: 'Estudiante de Arquitectura',
+      email: 'abi.mendez.121@gmail.com',
+      phone: '+351 928 329 834',
+      linkedin: '',
+      location: 'Odivelas, Lisboa',
+      cvFile: '/cv-emanuel-mendez.pdf',
+    },
   },
 
   pt: {
@@ -250,6 +261,16 @@ const dict = {
       { language: 'Inglês', level: 'Intermédio B1' },
       { language: 'Português', level: 'Intermédio B1' },
     ],
+    profile: {
+      name: 'Abigail Mendez',
+      degree: 'Estudante de Arquitetura',
+      role: 'Estudante de Arquitetura',
+      email: 'abi.mendez.121@gmail.com',
+      phone: '+351 928 329 834',
+      linkedin: '',
+      location: 'Odivelas, Lisboa',
+      cvFile: '/cv-emanuel-mendez.pdf',
+    },
   },
 
   en: {
@@ -370,6 +391,16 @@ const dict = {
       { language: 'English', level: 'Intermediate B1' },
       { language: 'Portuguese', level: 'Intermediate B1' },
     ],
+    profile: {
+      name: 'Abigail Mendez',
+      degree: 'Architecture Student',
+      role: 'Architecture Student',
+      email: 'abi.mendez.121@gmail.com',
+      phone: '+351 928 329 834',
+      linkedin: '',
+      location: 'Odivelas, Lisboa',
+      cvFile: '/cv-emanuel-mendez.pdf',
+    },
   },
 
   de: {
@@ -490,6 +521,16 @@ const dict = {
       { language: 'Englisch', level: 'Mittelstufe B1' },
       { language: 'Portugiesisch', level: 'Mittelstufe B1' },
     ],
+    profile: {
+      name: 'Abigail Mendez',
+      degree: 'Architekturstudentin',
+      role: 'Architekturstudentin',
+      email: 'abi.mendez.121@gmail.com',
+      phone: '+351 928 329 834',
+      linkedin: '',
+      location: 'Odivelas, Lisboa',
+      cvFile: '/cv-emanuel-mendez.pdf',
+    },
   },
 };
 
