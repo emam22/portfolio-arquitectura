@@ -100,5 +100,17 @@ mitad de una entrada).
 
 ## Deploy
 
-Conectá el repo en [vercel.com/new](https://vercel.com/new). Vercel detecta Vite,
-lee `vercel.json` y publica en cada push a `main`.
+**Producción:** https://portfolio-arquitectura-bay.vercel.app
+
+Vercel detecta Vite, lee `vercel.json` y publica en cada push a `main`.
+
+```bash
+vercel --prod        # deploy manual desde la CLI
+```
+
+El proyecto es `emamendez6-7148/portfolio-arquitectura` (plan Hobby). El repo
+público es https://github.com/emam22/portfolio-arquitectura.
+
+> **Nota sobre el build en Vercel:** `eslint-plugin-react-hooks` debe ser v5 o
+> superior. La v4 declara `peer eslint@^8` y rompe el `npm install` del build con
+> `ERESOLVE` contra ESLint 9, que es el que instala `npm install` (no `npm ci`).
