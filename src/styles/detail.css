@@ -1,0 +1,141 @@
+/* ============================================================
+   Vista de detalle: portada + galería secundaria con formatos mixtos
+   ============================================================ */
+
+.detail-container {
+  padding-top: clamp(28px, 4vw, 56px);
+}
+
+.detail-container .back-button {
+  margin-bottom: clamp(28px, 4vw, 48px);
+}
+
+/* --- Portada ------------------------------------------------ */
+
+/* Contenedor flexible: la imagen se muestra completa sobre fondo paspartú */
+.detail-hero {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  min-height: 420px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.detail-main-image {
+  width: 100%;
+  height: 100%;
+  /* Contain: el plano técnico o la foto vertical se muestran completos */
+  object-fit: contain;
+  object-position: center;
+}
+
+/* --- Ficha del proyecto -------------------------------------- */
+
+.detail-metadata {
+  max-width: 760px;
+  padding-top: clamp(40px, 6vw, 80px);
+}
+
+.detail-metadata h2 {
+  font-size: clamp(36px, 6vw, 72px);
+}
+
+.detail-metadata .location {
+  margin-top: 16px;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.detail-metadata .description {
+  margin-top: 28px;
+  font-size: clamp(16px, 1.8vw, 19px);
+  line-height: 1.7;
+  color: var(--ink-soft);
+  max-width: 62ch;
+}
+
+/* --- Galería secundaria -------------------------------------- */
+
+.secondary-gallery {
+  margin-top: clamp(56px, 8vw, 120px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(48px, 7vw, 96px);
+}
+
+.gallery-item {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  /* Marco de museo: fondo neutro y altura generosa */
+  background: var(--surface);
+  overflow: hidden;
+}
+
+/* Horizontal: banda a ancho completo, el plano se muestra entero */
+.gallery-item.horizontal {
+  padding: clamp(20px, 3vw, 40px) 0;
+}
+
+.gallery-item.horizontal .secondary-image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+
+/* Vertical y square: marco fijo de 80vh con la obra centrada y completa */
+.gallery-item.vertical,
+.gallery-item.square {
+  height: 80vh;
+  min-height: 420px;
+  padding: 24px 0;
+}
+
+.gallery-item.vertical .secondary-image {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: auto;
+  max-width: 100%;
+  aspect-ratio: 3 / 4;
+}
+
+.gallery-item.square .secondary-image {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: auto;
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.secondary-image {
+  /* Contain en todos los casos: nunca se corta la obra */
+  object-fit: contain;
+  object-position: center;
+}
+
+.gallery-item figcaption {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+  padding: 0 24px;
+}
+
+@media (max-width: 640px) {
+  .detail-hero {
+    height: 60vh;
+  }
+
+  .gallery-item.vertical,
+  .gallery-item.square {
+    height: 60vh;
+  }
+}

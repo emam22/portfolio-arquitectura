@@ -1,0 +1,287 @@
+/* ============================================================
+   Vista de CV: lámina con margen de encuadre, como un plano
+   ============================================================ */
+
+.cv-container {
+  max-width: 1180px;
+  padding: clamp(24px, 4vw, 64px);
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 30px 70px -60px rgba(18, 18, 18, 0.5);
+}
+
+/* Regla vertical de margen, al estilo de la lámina de dibujo */
+.cv-container {
+  background-image: linear-gradient(to right, var(--grid-bold) 1px, transparent 1px);
+  background-size: 100% 100%;
+  background-position: clamp(44px, 6vw, 88px) 0;
+  background-repeat: no-repeat;
+}
+
+/* --- Barra superior --------------------------------------------- */
+
+.cv-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding-bottom: clamp(20px, 3vw, 32px);
+  border-bottom: 1px solid var(--line);
+}
+
+.cv-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.cv-button {
+  font-family: inherit;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+  padding: 10px 18px;
+  border: 1px solid var(--line);
+  background: transparent;
+  cursor: pointer;
+  transition:
+    border-color 0.35s var(--ease-architecture),
+    background-color 0.35s var(--ease-architecture);
+}
+
+.cv-button:hover {
+  border-color: var(--ink);
+  background: var(--surface);
+}
+
+/* --- Encabezado ------------------------------------------------- */
+
+.cv-header {
+  padding: clamp(32px, 5vw, 60px) 0 clamp(28px, 4vw, 44px);
+  border-bottom: 1px solid var(--line);
+}
+
+.cv-name {
+  margin: 0;
+  font-size: clamp(42px, 7.5vw, 92px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+
+.cv-role {
+  margin-top: 18px;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+}
+
+.cv-contact {
+  margin: clamp(24px, 3vw, 36px) 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 18px 24px;
+}
+
+.cv-contact li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cv-contact-label {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cv-contact a {
+  font-size: 14px;
+  border-bottom: 1px solid var(--line);
+  transition: border-color 0.35s var(--ease-architecture);
+}
+
+.cv-contact a:hover {
+  border-color: var(--ink);
+}
+
+/* --- Cuerpo en dos columnas -------------------------------------- */
+
+.cv-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
+  gap: clamp(32px, 5vw, 72px);
+  padding-top: clamp(32px, 5vw, 56px);
+}
+
+.cv-section + .cv-section {
+  margin-top: clamp(36px, 5vw, 60px);
+  padding-top: clamp(28px, 4vw, 44px);
+  border-top: 1px solid var(--line);
+}
+
+.cv-section-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cv-section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+.cv-summary {
+  max-width: 60ch;
+  font-size: clamp(15px, 1.6vw, 17px);
+  line-height: 1.75;
+  color: var(--ink-soft);
+}
+
+/* --- Línea de tiempo --------------------------------------------- */
+
+.cv-timeline {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cv-entry {
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr);
+  gap: clamp(16px, 3vw, 36px);
+  padding: 26px 0;
+  border-top: 1px solid var(--line);
+}
+
+.cv-entry:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.cv-period {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 4px;
+}
+
+.cv-entry-title {
+  font-size: clamp(19px, 2vw, 24px);
+  line-height: 1.2;
+}
+
+.cv-entry-org {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.cv-dot {
+  color: var(--line);
+}
+
+.cv-bullets {
+  margin: 14px 0 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+
+.cv-bullets li::marker {
+  color: var(--muted);
+}
+
+/* --- Competencias ------------------------------------------------ */
+
+.cv-skills {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cv-skill-name {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.cv-tags {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.cv-tags li {
+  font-size: 12px;
+  padding: 5px 11px;
+  border: 1px solid var(--line);
+  color: var(--ink-soft);
+  background: var(--surface);
+}
+
+/* --- Listas simples ---------------------------------------------- */
+
+.cv-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cv-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+}
+
+.cv-list li:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.cv-list-title {
+  font-size: 14px;
+}
+
+.cv-list-meta {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* --- Responsive --------------------------------------------------- */
+
+@media (max-width: 900px) {
+  .cv-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cv-entry {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
